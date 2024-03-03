@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
 
-// export type News = {
-//   title: string
-//   description?: string
-//   url: string
-//   author?: string
-//   publishedAt: string
-// }
 export type News = {
   title: string
   description?: string
@@ -18,33 +11,42 @@ export type News = {
 const useNews = (category: string) => {
   const [news, setNews] = useState<News[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const params = new URLSearchParams({
-    category,
-    language: "en",
-  })
-
+  
   useEffect(() => {
     const fetchNews = async () => {
       setLoading(true);
-      const response = await fetch(`https://api.thenewsapi.com/v1/news/all?${params.toString()}&api_token=${process.env.NEXT_PUBLIC_THE_NEWS_API_KEY}`);
-      const data = await response.json();
-      // if (data.status !== "ok") throw new Error(data.message);
-      console.log({data})
-      setNews([
-        ...news,
-        ...data.data.map((article: any) => ({
+      const data: News[] = []
+      const promises: Promise<any>[] = [];
+
+      for (let i = 0; i < 3; i++) { // since the free plan only allows 3 articles per request, loop 3 times to get 9 articles
+        const params = new URLSearchParams({
+          categories: category,
+          language: "en",
+          page: (i+1).toString(),
+        })
+        const response = fetch(`https://api.thenewsapi.com/v1/news/all?${params.toString()}&api_token=${process.env.NEXT_PUBLIC_THE_NEWS_API_KEY}`);
+        promises.push(response);
+      }
+
+      const responses = await Promise.all(promises); // use promise.all to optimize the fetching of the articles
+      const parsed = await Promise.all(responses.map((response) => response.json()));
+      parsed.forEach((response) => {
+        data.push(...response.data.map((article: any) => ({
           title: article.title,
           description: article.description,
           url: article.url,
           author: article.source,
           publishedAt: new Date(article.published_at).toLocaleDateString(),
-        }))
-      ])
-      
+        })))
+      })
+        
+
+      setNews(data)
       setLoading(false);
     };
+    
+      fetchNews();
 
-    fetchNews();
   }, [category]);
 
   return [news, loading] as [News[], boolean];

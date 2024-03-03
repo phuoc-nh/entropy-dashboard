@@ -7,13 +7,16 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Loading } from '@/components/ui/Loading';
 
 export enum NewsCategory {
-  Business = 'Business',
-  Entertainment = 'Entertainment',
-  General = 'General',
-  Health = 'Health',
-  Science = 'Science',
-  Sports = 'Sports',
-  Technology = 'Technology',
+  Business = 'business',
+  Entertainment = 'entertainment',
+  General = 'general',
+  Health = 'health',
+  Science = 'science',
+  Sports = 'sports',
+  Technology = 'tech',
+  Politics = 'politics',
+  Food = 'food',
+  Travel = 'travel',
 }
 
 export default function News() {
