@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
 import useCurrentWeather from "@/hooks/weather/useCurrentWeather";
 import Image from "next/image"
 import { useState } from "react";
@@ -20,10 +19,10 @@ const CurrentWeather = () => {
             <Input className="w-[200px]" value={city} onChange={(e) => setCity(e.target.value)}></Input>
           </CardHeader>
           <CardContent className="flex justify-center items-center flex-col">
-            <CardTitle className="mb-2">{data?.name}</CardTitle>
-            <CardDescription className="capitalize">{data?.weather?.[0].description}</CardDescription>
-            <Image src={`http://openweathermap.org/img/w/${data?.weather[0].icon}.png`} alt="weather-icon" width={60} height={60}></Image>
-            <CardDescription className="text-xl">{Math.round(data?.main?.temp - 273)}°C</CardDescription>
+            <CardTitle className="mb-2">{data.name}</CardTitle>
+            <CardDescription className="capitalize">{data.description}</CardDescription>
+            <Image src={`http://openweathermap.org/img/w/${data.icon}.png`} alt="weather-icon" width={60} height={60}></Image>
+            <CardDescription className="text-xl">{Math.round(data.temp - 273)}°C</CardDescription>
           </CardContent>
         </>
       )}
