@@ -4,6 +4,7 @@ import { TableDemo } from './Table'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { localStorageMethods } from '@/utils/localStorageMethods'
 
 const todos = [
   {
@@ -26,14 +27,14 @@ type Todo = {
 }
 
 export default function Todo() {
-  if (!localStorage.getItem('todos')) {
-    localStorage.setItem('todos', JSON.stringify(todos))
+  if (!localStorageMethods.getItem('todos')) {
+    localStorageMethods.setItem('todos', JSON.stringify(todos))
   }
   const [tasks, setTasks] = useState<Todo[]>([])
   const [input, setInput] = useState('')
 
   useEffect(() => {
-    setTasks(JSON.parse(localStorage.getItem('todos')!))
+    setTasks(JSON.parse(localStorageMethods.getItem('todos')!))
   }, [])
 
   const handleToggleStatus = (index: number) => {
@@ -47,13 +48,13 @@ export default function Todo() {
       return task
     })
     setTasks(newTasks)
-    localStorage.setItem('todos', JSON.stringify(newTasks))
+    localStorageMethods.setItem('todos', JSON.stringify(newTasks))
   }
 
   const handleDelete = (index: number) => {
     const newTasks = tasks.filter((_, i) => i !== index)
     setTasks(newTasks)
-    localStorage.setItem('todos', JSON.stringify(newTasks))
+    localStorageMethods.setItem('todos', JSON.stringify(newTasks))
   }
 
   const handleAddTask = () => {
@@ -65,7 +66,7 @@ export default function Todo() {
       },
     ]
     setTasks(newTasks)
-    localStorage.setItem('todos', JSON.stringify(newTasks))
+    localStorageMethods.setItem('todos', JSON.stringify(newTasks))
     setInput('')
   }
 
