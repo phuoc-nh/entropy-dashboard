@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { localStorageMethods } from '@/utils/localStorageMethods'
+import { ConfirmDeleteModal } from './ConfirmModal'
 
 const todos = [
   {
@@ -32,6 +33,8 @@ export default function Todo() {
   }
   const [tasks, setTasks] = useState<Todo[]>([])
   const [input, setInput] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
+  const [deleteIndex, setDeleteIndex] = useState<number>()
 
   useEffect(() => {
     setTasks(JSON.parse(localStorageMethods.getItem('todos')!))
@@ -77,7 +80,15 @@ export default function Todo() {
         <Button onClick={handleAddTask} disabled={!input.trim()}>Add</Button>
       </div>
 
-      <TableDemo data={tasks} handleToggleStatus={handleToggleStatus} handleDelete={handleDelete}></TableDemo>
+      <TableDemo data={tasks} handleToggleStatus={handleToggleStatus} setDeleteIndex={setDeleteIndex} setIsOpen={setIsOpen}></TableDemo>
+      <ConfirmDeleteModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        deleteItem={() => {
+          handleDelete(deleteIndex!)
+          setIsOpen(false)
+        }}
+      ></ConfirmDeleteModal>
     </Card>
   )
 }

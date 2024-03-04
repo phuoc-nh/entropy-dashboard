@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
-
-First, run the development server:
+- Create .env.local file to store secrets.
+- Register [Open weather api](https://openweathermap.org) to retrieve weather api key then paste it into .env.local.
+- Register [The news api](https://www.thenewsapi.com) to retrieve news api key then paste it into .env.local.
 
 ```bash
+NEXT_PUBLIC_OPENWEATHERMAP_API_KEY=NEXT_PUBLIC_OPENWEATHERMAP_API_KEY
+NEXT_PUBLIC_THE_NEWS_API_KEY=NEXT_PUBLIC_THE_NEWS_API_KEY
+```
+
+Then, run the development server:
+
+```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Weather
 
-## Learn More
+- Current location is set default to Sydney, however it could be changed to other locations of choice.
+- When location is incorrectly specified, the error would be catch and the UI just keeps the previous state.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## News
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [The news api](https://www.thenewsapi.com) is decided to use since it allows to call in production, however, it limits to 3 articles pre request and 100 articles per day on production.
+- Each reload would retrieve 9 articles therefore after approximately 10 times reload, it would not be able to receive any news data.
+- [The news api](https://www.thenewsapi.com) is great but it only allows to call from localhost. Production env would not be possible to get any data.
+- Category could be addressed to filter articles.
 
-## Deploy on Vercel
+## Task manager
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Refer to [this article](https://dev.to/collegewap/how-to-use-local-storage-in-nextjs-2l2j) to set up Local Storage in nextjs.
+- Other parts are straight forward. It allows create, delete and mark completed tasks.
+- Delete would require confirmation to proceed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Other
+- Fully responsive.
+- Secrets are store in .env file.
+- 
+
+## Technology
+- React, Tailwind: a powerful combo with strong and enormous community back.
+- Shadcn UI: Extremely flexible library allows to customize built-in components.
+- Nextjs: easy to deploy and rollback. 

@@ -22,7 +22,8 @@ interface TodoProps {
     description: string
   }[]
   handleToggleStatus: (index: number) => void
-  handleDelete: (index: number) => void
+  setDeleteIndex: (index: number) => void
+  setIsOpen: (value: boolean) => void
 }
 
 export function TableDemo(props: TodoProps) {
@@ -49,7 +50,10 @@ export function TableDemo(props: TodoProps) {
             <TableCell>{todo.description}</TableCell>
             {/* <TableCell className="">asd</TableCell> */}
             <TableCell className="">
-              <Button variant="ghost" onClick={() => props.handleDelete(i)}>
+              <Button variant="ghost" onClick={() => {
+                props.setIsOpen(true)
+                props.setDeleteIndex(i)
+              }}>
                 <Trash2 className="h-15 w-15 text-red-500" />
               </Button>
             </TableCell>
