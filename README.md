@@ -40,7 +40,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Other
 - Fully responsive.
 - Secrets are store in .env file.
-- 
+- Daily quote integration.
 
 ## Technology
 - React, Tailwind: a powerful combo with strong and enormous community back.
