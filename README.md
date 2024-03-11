@@ -1,3 +1,4 @@
+Assignment that get me into Entropy Techlonogy.
 ## Getting Started
 - Create .env.local file to store secrets.
 - Register [Open weather api](https://openweathermap.org) to retrieve weather api key then paste it into .env.local.
